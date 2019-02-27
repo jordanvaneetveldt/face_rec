@@ -89,18 +89,18 @@ def detect_and_display(model, video_capture, face_detector, open_eyes_detector, 
             flags=cv2.CASCADE_SCALE_IMAGE
         )
 
-        # for each detected faces
+        # for each detected face
         for (x,y,w,h) in faces:
             # Encode the face into a 128-d embeddings vector
             encoding = face_recognition.face_encodings(rgb, [(y, x+w, y+h, x)])[0]
 
-            # Compare the vector with all known encodings faces
+            # Compare the vector with all known faces encodings
             matches = face_recognition.compare_faces(data["encodings"], encoding)
 
             # For now we don't know the person name
             name = "Unknown"
 
-            # If there is a match:
+            # If there is at least one match:
             if True in matches:
                 matchedIdxs = [i for (i, b) in enumerate(matches) if b]
                 counts = {}
@@ -125,7 +125,7 @@ def detect_and_display(model, video_capture, face_detector, open_eyes_detector, 
                 minSize=(30, 30),
                 flags = cv2.CASCADE_SCALE_IMAGE
             )
-            # if open_eyes_glasses detect eyes then eyes are open 
+            # if open_eyes_glasses detect eyes then they are open 
             if len(open_eyes_glasses) == 2:
                 eyes_detected[name]+='1'
                 for (ex,ey,ew,eh) in open_eyes_glasses:
