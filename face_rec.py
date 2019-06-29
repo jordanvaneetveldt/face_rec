@@ -13,6 +13,7 @@ def init():
     open_eye_cascPath = 'haarcascade_eye_tree_eyeglasses.xml'
     left_eye_cascPath = 'haarcascade_lefteye_2splits.xml'
     right_eye_cascPath ='haarcascade_righteye_2splits.xml'
+    #CREATE A FACES FOLDER FOR YOUR OWN IMAGES
     dataset = 'faces'
 
     face_detector = cv2.CascadeClassifier(face_cascPath)
