@@ -10,8 +10,7 @@ from keras.layers import Dense
 from keras.models import model_from_json
 from keras.preprocessing.image import ImageDataGenerator
 
-from scipy.ndimage import imread
-from scipy.misc import imresize, imsave
+import cv2
 
 IMG_SIZE = 24
 
@@ -100,9 +99,10 @@ def train(train_generator, val_generator):
 	save_model(model)
 
 def predict(img, model):
-	img = Image.fromarray(img, 'RGB').convert('L')
-	img = imresize(img, (IMG_SIZE,IMG_SIZE)).astype('float32')
-	img /= 255
+	## convet to gray the array image
+	img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+	## imresize is deprecated
+	img = cv2.resize(img, dsize=(IMG_SIZE,IMG_SIZE))
 	img = img.reshape(1,IMG_SIZE,IMG_SIZE,1)
 	prediction = model.predict(img)
 	if prediction < 0.1:
